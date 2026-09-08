@@ -742,3 +742,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
   .hero-actions,.cta-row{flex-direction:column;align-items:stretch}
   .hero-actions .btn,.cta-row .btn{justify-content:center}
 }
+
+/* ---- رسم الفئة في هيرو الصفحة ---- */
+.hero-split{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);
+  gap:clamp(28px,3.5vw,60px);align-items:center}
+.hero-art img{width:100%;height:auto;border:1px solid var(--line-d)}
+@media(max-width:900px){
+  .hero-split{grid-template-columns:1fr;gap:30px}
+  .hero-art{max-width:340px}
+}
