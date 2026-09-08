@@ -78,19 +78,43 @@
       '<path ' + S + ' d="m4 12.4 5.2 5.2L20 6.8"/>',
     clock:
       '<circle ' + S + ' cx="12" cy="12" r="8.6"/>' +
-      '<path ' + S + ' d="M12 7.2V12l3.2 2"/>'
+      '<path ' + S + ' d="M12 7.2V12l3.2 2"/>',
+    doc:
+      '<path ' + S + ' d="M6 3.2h7.4L18.4 8v12.8H6z"/>' +
+      '<path ' + S + ' d="M13.2 3.4V8.2h4.9"/>' +
+      '<path ' + S + ' d="M9 12.6h6M9 16h4.4"/>',
+    search:
+      '<circle ' + S + ' cx="10.8" cy="10.8" r="6.6"/>' +
+      '<path ' + S + ' d="m15.7 15.7 4.1 4.1"/>',
+    compare:
+      '<path ' + S + ' d="M5 6.4h6M5 12h6M5 17.6h6"/>' +
+      '<path ' + S + ' d="M15.4 8.6 18 6l2.6 2.6"/>' +
+      '<path ' + S + ' d="M18 6v12"/>',
+    handshake:
+      '<path ' + S + ' d="M3.4 12.4 7 8.8l3 1.2 3-1.2 3.6 3.6"/>' +
+      '<path ' + S + ' d="m10.2 14.4 1.8 1.8 1.8-1.8"/>' +
+      '<path ' + S + ' d="M3.4 12.4 6 15m15-2.6L18.4 15"/>',
+    lab:
+      '<path ' + S + ' d="M10 3.2v6L5.4 17.4a2 2 0 0 0 1.7 3h9.8a2 2 0 0 0 1.7-3L14 9.2v-6"/>' +
+      '<path ' + S + ' d="M8.6 3.2h6.8M7.6 14.6h8.8"/>',
+    ship:
+      '<path ' + S + ' d="M3.4 14.6 5 10h14l1.6 4.6"/>' +
+      '<path ' + S + ' d="M12 10V6.2h4"/>' +
+      '<path ' + S + ' d="M2.8 15.4c1.6 0 1.6 1.4 3.2 1.4s1.6-1.4 3.2-1.4 1.6 1.4 3.2 1.4 1.6-1.4 3.2-1.4 1.6 1.4 3.2 1.4"/>'
   };
   var LABELS_AR = {
     whatsapp: "واتساب", instagram: "إنستغرام", linkedin: "لينكدإن",
     facebook: "فيسبوك", x: "إكس", tiktok: "تيك توك", youtube: "يوتيوب",
     telegram: "تيليغرام", email: "البريد الإلكتروني", phone: "هاتف", maps: "الموقع على الخريطة",
-    check: "", clock: "ساعات العمل"
+    check: "", clock: "ساعات العمل",
+    doc: "", search: "", compare: "", handshake: "", lab: "", ship: ""
   };
   var LABELS_EN = {
     whatsapp: "WhatsApp", instagram: "Instagram", linkedin: "LinkedIn",
     facebook: "Facebook", x: "X", tiktok: "TikTok", youtube: "YouTube",
     telegram: "Telegram", email: "Email", phone: "Phone", maps: "Location on the map",
-    check: "", clock: "Working hours"
+    check: "", clock: "Working hours",
+    doc: "", search: "", compare: "", handshake: "", lab: "", ship: ""
   };
   var LABELS = EN ? LABELS_EN : LABELS_AR;
   function icon(name) {
@@ -110,6 +134,30 @@
     }
   });
 
+  /* ---------- الأيقونات المطلوبة بالاسم في الصفحة ---------- */
+  document.querySelectorAll("[data-ico]").forEach(function (el) {
+    el.innerHTML = icon(el.getAttribute("data-ico"));
+  });
+
+  /* ---------- صور المنتجات ----------
+     خانة الصورة تُحذف كلها إن لم يُملأ المتغيّر، فلا تبقى مساحة فارغة
+     ولا تُوضع صورة بديلة. */
+  document.querySelectorAll("[data-img]").forEach(function (box) {
+    var src = val(box.getAttribute("data-img"));
+    var img = box.querySelector("img");
+    if (src && img) { img.setAttribute("src", src); return; }
+    if (box.parentNode) box.parentNode.removeChild(box);
+  });
+
+  /* ---------- صفوف جدول المواصفات المرتبطة بالإعدادات ----------
+     الصف الذي لا قيمة له يُحذف بدل أن يُعرض فارغاً أو برقم مخترع. */
+  document.querySelectorAll("[data-env-row]").forEach(function (row) {
+    var v = val(row.getAttribute("data-env-row"));
+    var cell = row.querySelector("[data-env-cell]");
+    if (v && cell) { cell.textContent = v; return; }
+    if (row.parentNode) row.parentNode.removeChild(row);
+  });
+
   /* ---------- روابط الواتساب ---------- */
   var mainWa = waLink(val("WHATSAPP_MAIN"));
   /* رسالة مسبقة مناسبة للصفحة، تُعلنها الصفحة نفسها */
@@ -125,6 +173,37 @@
     } else {
       el.setAttribute("href", EN ? "/en/contact" : "/contact");
     }
+  });
+
+  /* ---------- نماذج الطلب ----------
+     الموقع ثابت بلا خادم، فالنموذج لا "يُرسَل" إلى أي مكان: يجمع ما كتبته
+     في رسالة مرتّبة ويفتح بها واتساب، أو البريد إن لم يكن هناك رقم.
+     هذا مذكور للزائر تحت النموذج صراحةً، ولا نعرض عليه رسالة نجاح كاذبة. */
+  function collect(form) {
+    var lines = [];
+    [].forEach.call(form.querySelectorAll("[name]"), function (f) {
+      var v = (f.value || "").trim();
+      if (!v) return;
+      var label = form.querySelector('label[for="' + f.id + '"]');
+      var name = label ? (label.firstChild.textContent || "").trim() : f.name;
+      lines.push(name.replace(/\s+/g, " ") + ": " + v);
+    });
+    return lines;
+  }
+  document.querySelectorAll("form[data-enquiry]").forEach(function (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var lines = collect(form);
+      if (!lines.length) return;
+      var title = form.getAttribute("data-enquiry");
+      var body = title + "\n\n" + lines.join("\n");
+      if (mainWa) {
+        window.open(mainWa + "?text=" + encodeURIComponent(body), "_blank", "noopener");
+      } else if (email) {
+        window.location.href = "mailto:" + email +
+          "?subject=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
+      }
+    });
   });
 
   /* ---------- البريد الإلكتروني ---------- */
@@ -286,19 +365,4 @@
   var yr = document.getElementById("yr");
   if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---------- ظهور العناصر عند التمرير ---------- */
-  var nodes = document.querySelectorAll(".rv");
-  if (!("IntersectionObserver" in window)) {
-    nodes.forEach(function (el) { el.classList.add("in"); });
-    return;
-  }
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-  nodes.forEach(function (el, i) {
-    el.style.transitionDelay = Math.min(i, 5) * 0.07 + "s";
-    io.observe(el);
-  });
 })();

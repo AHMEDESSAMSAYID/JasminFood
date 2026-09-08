@@ -15,6 +15,16 @@
 	@apex host tayibatfood.com
 	redir @apex https://www.tayibatfood.com{uri} permanent
 
+	# مسارات قديمة من هيكلة سابقة — تحويل دائم كي لا تضيع أي إشارة إليها
+	redir /process            /services  permanent
+	redir /en/process         /en/services  permanent
+	redir /shipments          /quality  permanent
+	redir /en/shipments       /en/quality  permanent
+	redir /products/dried-fruit     /products/dried-fruits  permanent
+	redir /en/products/dried-fruit  /en/products/dried-fruits  permanent
+	redir /products/apples          /products/fresh-produce  permanent
+	redir /en/products/apples       /en/products/fresh-produce  permanent
+
 	# روابط نظيفة: /products/eggs يُخدَم من /products/eggs/index.html
 	try_files {path} {path}/index.html
 	file_server

@@ -49,6 +49,29 @@ window.ENV = {
   TAX_NUMBER:         "8331014816",
   TAX_OFFICE:         "KOCASİNAN",
 
+  /* ---------- بيانات تجارية لكل مجال ----------
+     الحد الأدنى للطلب والطاقة الشهرية. اتركها "" حتى تثبت عندك،
+     فالسطر يختفي من جدول المواصفات بدل أن يُعرض رقم غير حقيقي. */
+  MOQ_EGGS:           "",
+  CAPACITY_EGGS:      "",
+  MOQ_NUTS:           "",
+  CAPACITY_NUTS:      "",
+  MOQ_DRIED_FRUITS:   "",
+  CAPACITY_DRIED_FRUITS: "",
+  MOQ_FRESH_PRODUCE:  "",
+  CAPACITY_FRESH_PRODUCE: "",
+
+  /* شروط التسليم التي تتعامل بها فعلياً، مفصولة بفواصل. "" تخفي السطر. */
+  INCOTERMS:          "",
+
+  /* ---------- صور المنتجات ----------
+     ضع الصورة في assets/img/products/ واكتب مسارها هنا.
+     الفارغ يعني بطاقة بلا صورة — لا صورة بديلة ولا صورة من الإنترنت. */
+  IMG_EGGS:           "",
+  IMG_NUTS:           "",
+  IMG_DRIED_FRUITS:   "",
+  IMG_FRESH_PRODUCE:  "",
+
   /* ---------- الشريكان ---------- */
   PARTNER_1_NAME:    "أحمد سيداوغلو",
   PARTNER_1_NAME_EN: "Ahmed Sayitoglu",

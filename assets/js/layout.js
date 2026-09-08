@@ -19,6 +19,8 @@
     email:     { ar: "البريد الإلكتروني", en: "Email" },
     division:  { ar: "للأغذية والحاصلات الزراعية", en: "Foods & Agri Exports" },
     quote:     { ar: "اطلب عرض سعر", en: "Request a quote" },
+    waShort:   { ar: "واتساب", en: "WhatsApp" },
+    quickActions: { ar: "إجراءات سريعة", en: "Quick actions" },
     menu:      { ar: "القائمة", en: "Menu" },
     mainMenu:  { ar: "القائمة الرئيسية", en: "Main menu" },
     mobMenu:   { ar: "القائمة الرئيسية للجوال", en: "Mobile menu" },
@@ -45,63 +47,55 @@
   var HOME = EN ? "/en/" : "/";
   var NAV_AR = [
     { label: "الرئيسية", href: EN ? "/en/" : "/" },
-    { label: "مجالات التوريد", href: P + "/products", children: [
-      { label: "جميع المجالات", href: P + "/products", note: "نظرة عامة على ما نوفّره" },
+    { label: "المنتجات", href: P + "/products", children: [
+      { label: "كل المنتجات", href: P + "/products", note: "المواصفات التجارية لكل فئة" },
       { sep: true },
       { label: "بيض المائدة", href: P + "/products/eggs" },
-      { label: "المشمش المجفف والتين", href: P + "/products/dried-fruit" },
       { label: "المكسرات", href: P + "/products/nuts" },
-      { label: "التفاح الطازج", href: P + "/products/apples" }
+      { label: "الفواكه المجففة", href: P + "/products/dried-fruits" },
+      { label: "الفواكه الطازجة", href: P + "/products/fresh-produce" }
     ]},
-    { label: "آلية العمل", href: P + "/process" },
-    { label: "لماذا نحن", href: P + "/about#why" },
-    { label: "الشركة", href: P + "/about", children: [
-      { label: "من نحن", href: P + "/about", note: "من نحن وكيف بدأنا" },
-      { label: "فريق العمل", href: P + "/about#team" },
-      { label: "الأسئلة الشائعة", href: P + "/faq" },
-      { label: "سجل الشحنات", href: P + "/shipments" }
-    ]},
+    { label: "خدمات التوريد", href: P + "/services" },
+    { label: "الجودة والامتثال", href: P + "/quality" },
+    { label: "من نحن", href: P + "/about" },
     { label: "تواصل معنا", href: P + "/contact" }
   ];
   var NAV_EN = [
     { label: "Home", href: EN ? "/en/" : "/" },
-    { label: "What we source", href: P + "/products", children: [
-      { label: "All areas", href: P + "/products", note: "An overview of what we supply" },
+    { label: "Products", href: P + "/products", children: [
+      { label: "All products", href: P + "/products", note: "Trade specifications by category" },
       { sep: true },
       { label: "Table eggs", href: P + "/products/eggs" },
-      { label: "Dried apricots & figs", href: P + "/products/dried-fruit" },
       { label: "Nuts", href: P + "/products/nuts" },
-      { label: "Fresh apples", href: P + "/products/apples" }
+      { label: "Dried fruits", href: P + "/products/dried-fruits" },
+      { label: "Fresh produce", href: P + "/products/fresh-produce" }
     ]},
-    { label: "How we work", href: P + "/process" },
-    { label: "Why us", href: P + "/about#why" },
-    { label: "Company", href: P + "/about", children: [
-      { label: "About us", href: P + "/about", note: "Who we are and how we started" },
-      { label: "The team", href: P + "/about#team" },
-      { label: "FAQ", href: P + "/faq" },
-      { label: "Shipment record", href: P + "/shipments" }
-    ]},
+    { label: "Sourcing services", href: P + "/services" },
+    { label: "Quality & compliance", href: P + "/quality" },
+    { label: "About us", href: P + "/about" },
     { label: "Contact", href: P + "/contact" }
   ];
   var NAV = EN ? NAV_EN : NAV_AR;
 
   var FOOT_SUPPLY = EN ? [
       ["Table eggs", P + "/products/eggs"],
-      ["Dried apricots & figs", P + "/products/dried-fruit"],
       ["Nuts", P + "/products/nuts"],
-      ["Fresh apples", P + "/products/apples"]
+      ["Dried fruits", P + "/products/dried-fruits"],
+      ["Fresh produce", P + "/products/fresh-produce"]
     ] : [
       ["بيض المائدة", P + "/products/eggs"],
-      ["المشمش المجفف والتين", P + "/products/dried-fruit"],
       ["المكسرات", P + "/products/nuts"],
-      ["التفاح الطازج", P + "/products/apples"]
+      ["الفواكه المجففة", P + "/products/dried-fruits"],
+      ["الفواكه الطازجة", P + "/products/fresh-produce"]
     ];
   var FOOT_COMPANY = EN ? [
-      ["About us", P + "/about"], ["How we work", P + "/process"],
-      ["FAQ", P + "/faq"], ["Shipment record", P + "/shipments"], ["Contact", P + "/contact"]
+      ["Sourcing services", P + "/services"], ["Quality & compliance", P + "/quality"],
+      ["About us", P + "/about"], ["FAQ", P + "/faq"],
+      ["Request a quote", P + "/rfq"], ["Contact", P + "/contact"]
     ] : [
-      ["من نحن", P + "/about"], ["آلية العمل", P + "/process"],
-      ["الأسئلة الشائعة", P + "/faq"], ["سجل الشحنات", P + "/shipments"], ["تواصل معنا", P + "/contact"]
+      ["خدمات التوريد", P + "/services"], ["الجودة والامتثال", P + "/quality"],
+      ["من نحن", P + "/about"], ["الأسئلة الشائعة", P + "/faq"],
+      ["اطلب عرض سعر", P + "/rfq"], ["تواصل معنا", P + "/contact"]
     ];
 
   /* عمود الأسواق عربي فقط — صفحات الأسواق غير مترجمة */
@@ -183,15 +177,15 @@
         '<a class="lockup" href="' + HOME + '">' +'<span class="logo-mark" aria-hidden="true">T</span>' +'<span class="logo-type"><b>TAYIBAT</b><span>' + t("division") + '</span></span>' +'</a>' +
         '<nav aria-label="' + t("mainMenu") + '"><ul class="nav">' + desktop + '</ul></nav>' +
         '<div class="nav-cta">' +
-          '<a class="btn btn-sm" data-wa data-icon="whatsapp" href="' + (P + "/contact") + '">' + t("quote") + '</a>' +
+          '<a class="btn btn-sm" data-icon="doc" href="' + (P + "/rfq") + '">' + t("quote") + '</a>' +
           '<button class="burger" type="button" aria-expanded="false" aria-controls="mobile-nav" ' +
           'aria-label="' + t("menu") + '"><span></span><span></span><span></span></button>' +
         '</div>' +
       '</div></div>' +
       '<nav class="mobile-nav" id="mobile-nav" aria-label="' + t("mobMenu") + '">' +
         '<ul>' + mobile + '</ul>' +
-        '<div class="m-cta"><a class="btn" data-wa data-icon="whatsapp" href="' +
-        (P + "/contact") + '">' + t("quote") + '</a></div>' +
+        '<div class="m-cta"><a class="btn" data-icon="doc" href="' +
+        (P + "/rfq") + '">' + t("quote") + '</a></div>' +
       '</nav>' +
     '</header>';
   }
@@ -251,7 +245,12 @@
       '</div>' +
     '</div></footer>' +
     '<a class="wa-float" data-wa data-icon="whatsapp" href="' + (P + "/contact") +
-    '" aria-label="' + t("waAria") + '"></a>';
+    '" aria-label="' + t("waAria") + '"></a>' +
+    /* على الجوال يحل شريط ثابت محل الزر العائم: أهم إجراءين في متناول الإبهام */
+    '<nav class="mobile-bar" aria-label="' + t("quickActions") + '">' +
+      '<a data-wa data-icon="whatsapp" href="' + (P + "/contact") + '">' + t("waShort") + '</a>' +
+      '<a data-icon="doc" href="' + (P + "/rfq") + '">' + t("quote") + '</a>' +
+    '</nav>';
   }
 
   /* ---------- الحقن ---------- */
