@@ -1,0 +1,38 @@
+# خادم الموقع على ريلواي — موقع ثابت، فالخادم كل ما يلزمه.
+# ريلواي تحقن رقم المنفذ في PORT، والافتراضي 80 عند التشغيل محلياً.
+{
+	admin off
+	persist_config off
+	auto_https off        # ريلواي تتولى TLS أمام الحاوية
+}
+
+:{$PORT:80} {
+	root * /srv
+	encode gzip zstd
+
+	# النطاق المجرّد إلى www: وسم canonical في كل صفحة يشير إلى www،
+	# فلا يصح أن يُقدَّم نفس المحتوى من عنوانين.
+	@apex host tayibatfood.com
+	redir @apex https://www.tayibatfood.com{uri} permanent
+
+	# روابط نظيفة: /products/eggs يُخدَم من /products/eggs/index.html
+	try_files {path} {path}/index.html
+	file_server
+
+	# الأصول أسماؤها ثابتة ومحتواها يُعاد بناؤه مع كل نشر، فتُخزَّن طويلاً.
+	# أما الصفحات فتُراجَع في كل زيارة، وإلا ظل المتصفح يعرض نسخة قبل النشر.
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+	@pages not path /assets/*
+	header @pages Cache-Control "public, max-age=0, must-revalidate"
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	handle_errors {
+		respond "{err.status_code} {err.status_text}"
+	}
+}

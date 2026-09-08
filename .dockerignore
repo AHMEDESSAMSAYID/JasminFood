@@ -1,0 +1,6 @@
+# لا يدخل الصورة: تاريخ جِت وإعدادات استضافات أخرى
+.git
+.gitignore
+README.md
+_redirects
+.htaccess
