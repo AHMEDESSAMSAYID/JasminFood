@@ -34,8 +34,6 @@
                  en: "Turkish foods and agricultural produce sourced for Saudi Arabia and the Gulf.<br>Registered in Türkiye since " },
     fCity:     { ar: "إسطنبول، تركيا", en: "Istanbul, Türkiye" },
     taxNo:     { ar: "الرقم الضريبي: ", en: "Tax No: " },
-    taxOffice: { ar: " — مديرية ضرائب ", en: " — " },
-    taxSuffix: { ar: "", en: " Tax Office" },
     rights:    { ar: "طيّبات للأغذية. جميع الحقوق محفوظة.",
                  en: "Tayibat Foods. All rights reserved." }
   };
@@ -198,6 +196,27 @@
     '</header>';
   }
 
+  /* السطر القانوني: ما لا قيمة له في env.js لا يظهر أصلاً — لا نائب ولا
+     شرطة. الخانة الفارغة تعني بياناً لم يصلنا بعد، لا بياناً ناقصاً نعرضه. */
+  function envText(key) {
+    var v = (window.ENV || {})[key];
+    v = typeof v === "string" ? v.trim() : "";
+    return /^\[[^\]]*\]$/.test(v) ? "" : v;
+  }
+  function legalLine() {
+    var out = "";
+    var name = envText("COMPANY_LEGAL_NAME");
+    if (name) out += '<span dir="ltr">' + name + '</span><br>';
+    var no = envText("TAX_NUMBER"), office = envText("TAX_OFFICE");
+    var bits = [];
+    if (no) bits.push(t("taxNo") + no);
+    /* التسمية ملتصقة بقيمتها لا فاصلاً بينها وبين غيرها، كي يبقى السطر
+       مفهوماً إذا غاب أحد الطرفين */
+    if (office) bits.push(EN ? office + " Tax Office" : "\u0645\u062F\u064A\u0631\u064A\u0629 \u0636\u0631\u0627\u0626\u0628 " + office);
+    if (bits.length) out += bits.join(" \u2014 ") + "<br>";
+    return out;
+  }
+
   /* ---------- التذييل ---------- */
   function footer() {
     function links(items) {
@@ -227,12 +246,7 @@
       '</div>' +
       '<div class="fsocial"><ul class="social social-footer" data-social-footer aria-label="' + t("social") + '"></ul></div>' +
       '<div class="legal">' +
-        '<span class="fill" data-env="COMPANY_LEGAL_NAME" dir="ltr">' +
-        (EN ? "[company legal name]" : "[\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u0642\u0627\u0646\u0648\u0646\u064A \u0644\u0644\u0634\u0631\u0643\u0629]") + '</span><br>' +
-        t("taxNo") + '<span class="fill" data-env="TAX_NUMBER">' +
-        (EN ? "[tax number]" : "[\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0636\u0631\u064A\u0628\u064A]") + '</span>' + t("taxOffice") +
-        '<span class="fill" data-env="TAX_OFFICE">' +
-        (EN ? "[tax office]" : "[\u0645\u062F\u064A\u0631\u064A\u0629 \u0627\u0644\u0636\u0631\u0627\u0626\u0628]") + '</span>' + t("taxSuffix") + '<br>' +
+        legalLine() +
         '\u00A9 <span id="yr">2026</span> ' + t("rights") +
       '</div>' +
     '</div></footer>' +

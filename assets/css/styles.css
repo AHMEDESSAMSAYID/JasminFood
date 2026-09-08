@@ -56,6 +56,16 @@ h1,h2,h3,h4{font-family:var(--head);color:var(--ink);text-wrap:balance;letter-sp
 .s-dark-2 h1,.s-dark-2 h2,.s-dark-2 h3,.s-dark-2 h4,
 .s-dark-3 h1,.s-dark-3 h2,.s-dark-3 h3,.s-dark-3 h4{color:#fff}
 
+/* العربية خط متصل: التقارب السالب يلصق الحروف ببعضها، والسطر الضيق
+   يخنق الألف واللام والكاف صعوداً والياء والجيم نزولاً. القيم السالبة
+   أعلاه مضبوطة للاتينية، فنُلغيها في الاتجاه العربي ونوسّع السطر. */
+[dir="rtl"] h1,[dir="rtl"] h2,[dir="rtl"] h3,[dir="rtl"] h4,
+[dir="rtl"] .catch,[dir="rtl"] .kicker{letter-spacing:normal}
+[dir="rtl"] .hero h1{line-height:1.24}
+[dir="rtl"] .page-hero h1{line-height:1.3}
+[dir="rtl"] .sec-head h2{line-height:1.3}
+[dir="rtl"] .cta-band h2{line-height:1.3}
+
 h2{font-weight:800;font-size:clamp(28px,3.4vw,50px);line-height:1.22}
 h3{font-weight:700;font-size:clamp(18px,1.3vw,22px);line-height:1.5}
 
