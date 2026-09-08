@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 124" role="img" aria-label="Tayibat Foods">
+  <circle cx="62" cy="62" r="62" fill="#0E1620"/>
+  <circle cx="62" cy="62" r="50" fill="none" stroke="#C39A4E" stroke-width="1.8" opacity=".85"/>
+  <text x="62" y="63" text-anchor="middle" dominant-baseline="central"
+        font-family="Georgia,'Times New Roman',serif" font-size="74" fill="#C39A4E">T</text>
+  <text x="146" y="56" font-family="Cairo,system-ui,sans-serif" font-size="34"
+        font-weight="800" letter-spacing="3" fill="#0E1620">TAYIBAT</text>
+  <text x="146" y="86" font-family="Cairo,system-ui,sans-serif" font-size="16"
+        font-weight="400" letter-spacing="1" fill="#8A6A2E">Foods &amp; Agri Exports</text>
+</svg>

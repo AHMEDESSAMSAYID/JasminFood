@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 124" role="img" aria-label="Tayibat">
+  <circle cx="62" cy="62" r="62" fill="#0E1620"/>
+  <circle cx="62" cy="62" r="50" fill="none" stroke="#C39A4E" stroke-width="1.8" opacity=".85"/>
+  <text x="62" y="63" text-anchor="middle" dominant-baseline="central"
+        font-family="Georgia,'Times New Roman',serif" font-size="74" fill="#C39A4E">T</text>
+</svg>
