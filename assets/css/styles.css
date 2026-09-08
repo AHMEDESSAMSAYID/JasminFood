@@ -94,7 +94,12 @@ h3{font-weight:700;font-size:clamp(18px,1.3vw,22px);line-height:1.5}
   transition:background .22s ease,border-color .22s ease,color .22s ease;
 }
 .btn:hover{background:var(--gold-lt);border-color:var(--gold-lt)}
+/* شبكة أمان: أي أيقونة داخل رابط أو زر لها مقاس افتراضي. بدونها يتمدد
+   الـ SVG بلا أبعاد إلى ملء المساحة المتاحة. :where بلا وزن في التخصيص،
+   فأي قاعدة أدق أدناه تتغلب عليها. */
+:where(a,button) > svg{width:18px;height:18px;flex-shrink:0}
 .btn svg{width:19px;height:19px;flex-shrink:0}
+.btn-line svg{width:18px;height:18px;flex-shrink:0}
 .btn-sm{padding:11px 22px;font-size:14px}
 .btn-line{
   display:inline-flex;align-items:center;gap:8px;text-decoration:none;
