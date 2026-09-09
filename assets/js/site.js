@@ -97,6 +97,9 @@
     lab:
       '<path ' + S + ' d="M10 3.2v6L5.4 17.4a2 2 0 0 0 1.7 3h9.8a2 2 0 0 0 1.7-3L14 9.2v-6"/>' +
       '<path ' + S + ' d="M8.6 3.2h6.8M7.6 14.6h8.8"/>',
+    shield:
+      '<path ' + S + ' d="M12 3.2 5.4 6v6c0 4.3 2.8 7.4 6.6 8.8 3.8-1.4 6.6-4.5 6.6-8.8V6z"/>' +
+      '<path ' + S + ' d="m9 12.2 2.2 2.2L15.4 10"/>',
     ship:
       '<path ' + S + ' d="M3.4 14.6 5 10h14l1.6 4.6"/>' +
       '<path ' + S + ' d="M12 10V6.2h4"/>' +
@@ -107,14 +110,14 @@
     facebook: "فيسبوك", x: "إكس", tiktok: "تيك توك", youtube: "يوتيوب",
     telegram: "تيليغرام", email: "البريد الإلكتروني", phone: "هاتف", maps: "الموقع على الخريطة",
     check: "", clock: "ساعات العمل",
-    doc: "", search: "", compare: "", handshake: "", lab: "", ship: ""
+    doc: "", search: "", compare: "", handshake: "", lab: "", ship: "", shield: ""
   };
   var LABELS_EN = {
     whatsapp: "WhatsApp", instagram: "Instagram", linkedin: "LinkedIn",
     facebook: "Facebook", x: "X", tiktok: "TikTok", youtube: "YouTube",
     telegram: "Telegram", email: "Email", phone: "Phone", maps: "Location on the map",
     check: "", clock: "Working hours",
-    doc: "", search: "", compare: "", handshake: "", lab: "", ship: ""
+    doc: "", search: "", compare: "", handshake: "", lab: "", ship: "", shield: ""
   };
   var LABELS = EN ? LABELS_EN : LABELS_AR;
   function icon(name) {
