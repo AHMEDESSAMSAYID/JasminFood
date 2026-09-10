@@ -801,16 +801,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 @media(max-width:1100px){.hero-media{width:46%}}
 @media(max-width:760px){
   .hero-points{grid-template-columns:1fr;gap:18px}
-  .hero-points li{border-inline-end:0;padding-inline:0}
+  /* لا بد من ذكر li + li صراحةً: محدّدها أقوى من .hero-points li وحدها،
+     فبغيرها يبقى العنصران الثاني والثالث مزاحين عن الأول في عمود واحد */
+  .hero-points li,
+  .hero-points li + li{border-inline-end:0;padding-inline:0}
 }
 @media(max-width:900px){
-  /* الصورة شريط عرضي أسفل النص، لا خلفية تحته */
-  .hero.has-media{overflow:visible}
-  .hero-media{position:static;width:auto;margin-top:clamp(34px,5vw,52px);
-    /* الشريط يرتفع مع عرض الشاشة كي لا يُقصّ اسم الشاحنة عند 900px */
-    height:clamp(200px,34vw,320px)}
-  .hero-media::after{display:none}
-  /* بلا تدرّج يعتم أي حافة، فالمشهد كامل في الاتجاهين */
+  /* الصورة خلفية الهيرو كله كما في الشاشات الكبيرة، لا شريط منفصل تحته.
+     التدرّج هنا رأسي لا أفقي: النص يغطّي العرض كاملاً، فلا حافة واحدة
+     تُعتَم بل الطبقة كلها. النِسَب مقيسة من بكسلات الصورة نفسها حتى
+     يبقى أضعف نص فوقها فوق حدّ AA. */
+  .hero.has-media{overflow:hidden}
+  .hero-media{position:absolute;inset:0;width:auto;height:auto;margin:0}
   [dir="rtl"] .hero-media img,
   [dir="ltr"] .hero-media img{object-position:center}
+  [dir="rtl"] .hero-media::after,
+  [dir="ltr"] .hero-media::after{display:block;background:
+    linear-gradient(180deg,rgba(14,22,32,.92) 0,rgba(14,22,32,.88) 45%,rgba(14,22,32,.95) 100%)}
 }
